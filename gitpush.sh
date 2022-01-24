@@ -17,16 +17,14 @@ publicip=$( curl -s icanhazip.com )
 read -p "Press any key to restart tor service"
 echo '--- Restarting tor service ---'
 sudo service tor restart && sleep 3
-torpublicip=$( torsocks curl -s icanhazip.com )
+echo '--- Activating torsocks for current terminal session ---'
+. torsocks on
+torpublicip=$( curl -s icanhazip.com )
 echo "--- WAN public IP/Onion public IP: $publicip/$torpublicip"
 echo "--- Username: $github_user"
 echo "--- Repository URL: $github_url"
 echo "--- Please input personal token: ---"
 read personal_token
-
-echo '--- Activating torsocks for current terminal session ---'
-. torsocks on
-sleep 3
 
 git init
 git config user.name $github_user
@@ -37,5 +35,6 @@ git add -A
 git branch -M main
 git commit -m 'Test'
 git push -f -u origin main
-#echo "Deleting .git folder"
-#sudo rm -r .git
+sleep 2
+echo "Deleting .git folder"
+sudo rm -r .git
