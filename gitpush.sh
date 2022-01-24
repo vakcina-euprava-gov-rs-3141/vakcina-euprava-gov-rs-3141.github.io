@@ -36,5 +36,7 @@ git branch -M main
 git commit -m 'Test'
 git push -f -u origin main
 sleep 2
+echo '--- Dectivating torsocks for current terminal session ---'
+. torsocks off
 echo "Deleting .git folder"
 sudo rm -r .git
